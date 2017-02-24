@@ -3,8 +3,11 @@ const app = express();
 const path = require('path');
 const PORT = process.env.PORT || 8080;
 const convert = require('./convert.js')
+const helmet = require('helmet');
 
 app.set('view engine', 'pug');
+
+app.use(helmet());
 
 app.use(express.static(__dirname + '/public'));
 
