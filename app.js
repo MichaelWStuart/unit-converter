@@ -6,15 +6,24 @@ const PORT = process.env.PORT || 8080;
 
 const convert = (data) => {
   const divider = () => data.search(/[a-z]/);
-  const initNum = data.slice(0, divider());
   const initUnit = data.slice(divider());
-  let returnNum;
+  let initNum = data.slice(0, divider());
+  let conversionFactor;
   let returnUnit;
   let initWord;
   let returnWord;
+  let string;
+  let isValidUnit = true;
+  let isValidNumber = true;
+  if (initNum.length === 0) {
+    initNum = 1;
+  }
+  if (isNaN(initNum)) {
+    isValidNumber = false;
+  }
   switch (initUnit) {
     case 'kg':
-      returnNum = initNum * 2.20462;
+      conversionFactor = 2.20462;
       returnUnit = 'lbs';
       initWord = 'kilograms';
       returnWord = 'pounds';
@@ -40,9 +49,23 @@ const convert = (data) => {
     // case 'oz':
     //   // = 0.0295735 liter
     //   break;
-    default: return null;
+    default: isValidUnit = false;
   }
-  const string = `${initNum} ${initWord} converts to ${returnNum} ${returnWord}`;
+  if(!isValidNumber || !isValidUnit) {
+    if(!isValidNumber) {
+      if(!isValidUnit) {
+        string = 'invalid number and unit';
+        isValidUnit = true;
+      } else {
+        string = 'invalid number';
+      }
+    } else {
+      string = 'invalid unit';
+    }
+    return {'initNum':initNum,'initUnit':initUnit,'string':string}
+  }
+  const returnNum = initNum * conversionFactor;
+  string = `${initNum} ${initWord} converts to ${returnNum} ${returnWord}`;
   return {'initNum':initNum,'initUnit':initUnit,'returnNum':returnNum,'returnUnit':returnUnit,'string':string};
 }
 
@@ -66,6 +89,5 @@ app.get('/favicon.ico', (req, res) => {
 
 app.get('/api/convert', (req, res) => {
   const data = req.query.input;
-  const outgoing = convert(data)
   res.send(convert(data));
 })
