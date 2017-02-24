@@ -1,1 +1,1 @@
-[https://git.heroku.com/thawing-lake-80987.git](https://git.heroku.com/thawing-lake-80987.git)
+[https://thawing-lake-80987.herokuapp.com/](https://thawing-lake-80987.herokuapp.com/)
