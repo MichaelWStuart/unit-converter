@@ -1,0 +1,13 @@
+html
+  head
+    title='Unit Converter'
+    script(src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous")
+    script(type="text/javascript" src="./index.js")
+
+  body
+    h1 Metric/Imperial Unit Converter
+    form(action='/' method='GET')
+      input(type='text' name='data' placeholder='3.1mi')
+      button(type='submit') Convert
+    p(#dataString)
+    p(#dataObject)
