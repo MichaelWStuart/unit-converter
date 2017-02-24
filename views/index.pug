@@ -1,1 +1,10 @@
-h1 hello
+html
+  head
+    title='Unit Converter'
+  body
+    h1 Metric/Imperial Unit Converter
+    form(action='/' method='GET')
+      input(type='text' name='data' placeholder='3.1mi')
+      button(type='submit') Convert
+    #dataString
+    #dataObject
